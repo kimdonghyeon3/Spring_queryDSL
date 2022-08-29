@@ -20,7 +20,7 @@ public class SiteUserRepositoryImpl implements SiteUserRepositoryCustom{
         return jpaQueryFactory
                 .select(QSiteUser.siteUser)
                 .from(QSiteUser.siteUser)
-                .where(QSiteUser.siteUser.id.eq(1L))
+                .where(QSiteUser.siteUser.id.eq(id))
                 .fetchOne();
     }
 }
