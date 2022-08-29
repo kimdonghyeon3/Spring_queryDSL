@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class SiteUserController {
 
-    private final SiteUserRepository userRepository;
+    private final SiteUserRepository siteUserRepository;
 
     @RequestMapping("/user/{id}")
     public SiteUser user(@PathVariable Long id) {
-        return userRepository.getQslUser(id);
+        return siteUserRepository.getQslUser(id);
     }
 
 }
