@@ -35,4 +35,17 @@ public class SiteUserRepositoryImpl implements SiteUserRepositoryCustom{
                 .from(QSiteUser.siteUser)
                 .fetchOne();
     }
+
+    @Override
+    public SiteUser getQslUserOrderByIdAscOne() {
+
+        return jpaQueryFactory
+                .select(
+                        QSiteUser.siteUser
+                )
+                .from(QSiteUser.siteUser)
+                .orderBy(QSiteUser.siteUser.id.asc())
+                .limit(1)
+                .fetchOne();
+    }
 }
