@@ -59,4 +59,12 @@ public class SiteUserRepositoryTest {
         assertThat(u2.getEmail()).isEqualTo("user2@test.com");
         assertThat(u2.getPassword()).isEqualTo("{noop}1234");
     }
+
+    @Test
+    @DisplayName("모든 회원의 수")
+    void t4() {
+        Long count = siteUserRepository.getQslCount();
+
+        assertThat(count).isGreaterThan(0L);
+    }
 }
