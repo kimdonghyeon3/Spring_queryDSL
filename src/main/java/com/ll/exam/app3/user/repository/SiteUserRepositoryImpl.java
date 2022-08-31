@@ -2,7 +2,7 @@ package com.ll.exam.app3.user.repository;
 
 import com.ll.exam.app3.interestKeyword.entity.InterestKeyword;
 import com.ll.exam.app3.interestKeyword.entity.QInterestKeyword;
-import com.ll.exam.app3.user.entity.QSiteUser;
+//import com.ll.exam.app3.user.entity.QSiteUser;
 import com.ll.exam.app3.user.entity.SiteUser;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
@@ -15,6 +15,7 @@ import org.springframework.data.domain.Sort;
 
 import java.util.List;
 
+import static com.ll.exam.app3.user.entity.QSiteUser.siteUser;
 import static org.springframework.util.ObjectUtils.isEmpty;
 
 
@@ -32,9 +33,9 @@ public class SiteUserRepositoryImpl implements SiteUserRepositoryCustom{
         */
 
         return jpaQueryFactory
-                .select(QSiteUser.siteUser)
-                .from(QSiteUser.siteUser)
-                .where(QSiteUser.siteUser.id.eq(id))
+                .select(siteUser)
+                .from(siteUser)
+                .where(siteUser.id.eq(id))
                 .fetchOne();
     }
 
@@ -43,10 +44,8 @@ public class SiteUserRepositoryImpl implements SiteUserRepositoryCustom{
     public Long getQslCount() {
 
         return jpaQueryFactory
-                .select(
-                        QSiteUser.siteUser.count()
-                        )
-                .from(QSiteUser.siteUser)
+                .select(siteUser.count())
+                .from(siteUser)
                 .fetchOne();
     }
 
@@ -54,11 +53,9 @@ public class SiteUserRepositoryImpl implements SiteUserRepositoryCustom{
     public SiteUser getQslUserOrderByIdAscOne() {
 
         return jpaQueryFactory
-                .select(
-                        QSiteUser.siteUser
-                )
-                .from(QSiteUser.siteUser)
-                .orderBy(QSiteUser.siteUser.id.asc())
+                .select(siteUser)
+                .from(siteUser)
+                .orderBy(siteUser.id.asc())
                 .limit(1)
                 .fetchOne();
     }
@@ -67,9 +64,9 @@ public class SiteUserRepositoryImpl implements SiteUserRepositoryCustom{
     public List<SiteUser> getQslUserOrderByIdAsc() {
 
         return jpaQueryFactory
-                .select(QSiteUser.siteUser)
-                .from(QSiteUser.siteUser)
-                .orderBy(QSiteUser.siteUser.id.asc())
+                .select(siteUser)
+                .from(siteUser)
+                .orderBy(siteUser.id.asc())
                 .fetch();
     }
 
@@ -77,9 +74,9 @@ public class SiteUserRepositoryImpl implements SiteUserRepositoryCustom{
     public List<SiteUser> serchQsl(String str) {
 
         return jpaQueryFactory
-                .select(QSiteUser.siteUser)
-                .from(QSiteUser.siteUser)
-                .where(QSiteUser.siteUser.username.like("%"+str+"%").or(QSiteUser.siteUser.email.like("%"+str+"%")))
+                .select(siteUser)
+                .from(siteUser)
+                .where(siteUser.username.like("%"+str+"%").or(siteUser.email.like("%"+str+"%")))
                 .fetch();
     }
 
@@ -87,18 +84,18 @@ public class SiteUserRepositoryImpl implements SiteUserRepositoryCustom{
     public Page<SiteUser> searchQsl(String str, Pageable pageable) {
 
         List<SiteUser> results = jpaQueryFactory
-                .select(QSiteUser.siteUser)
-                .from(QSiteUser.siteUser)
-                .where(QSiteUser.siteUser.username.like("%"+str+"%").or(QSiteUser.siteUser.email.like("%"+str+"%")))
+                .select(siteUser)
+                .from(siteUser)
+                .where(siteUser.username.like("%"+str+"%").or(siteUser.email.like("%"+str+"%")))
                 .orderBy(siteUserSort(pageable))
                 .offset(pageable.getOffset())   //몇개를 건너 띄어야 하는지 limit {1}, ?
                 .limit(pageable.getPageSize())  //한페이지에 몇 개가 보여야 하는지 limit ?, {1]
                 .fetch();
 
         Long count = jpaQueryFactory
-                .select(QSiteUser.siteUser.count())
-                .from(QSiteUser.siteUser)
-                .where(QSiteUser.siteUser.username.like("%"+str+"%").or(QSiteUser.siteUser.email.like("%"+str+"%")))
+                .select(siteUser.count())
+                .from(siteUser)
+                .where(siteUser.username.like("%"+str+"%").or(siteUser.email.like("%"+str+"%")))
                 .fetchOne();
 
         return new PageImpl<>(results, pageable, count);
@@ -108,12 +105,11 @@ public class SiteUserRepositoryImpl implements SiteUserRepositoryCustom{
     public List<SiteUser> getSiteUserByInterestKeyword(String str) {
 
         return jpaQueryFactory
-                .select(QSiteUser.siteUser)
-                .from(QSiteUser.siteUser)
-                .where(QSiteUser.siteUser.interestKeywords.contains(new InterestKeyword(str)))
+                .select(siteUser)
+                .from(siteUser)
+                .where(siteUser.interestKeywords.contains(new InterestKeyword(str)))
                 .fetch();
     }
-
 
 
     private OrderSpecifier<?> siteUserSort(Pageable page) {
@@ -126,11 +122,11 @@ public class SiteUserRepositoryImpl implements SiteUserRepositoryCustom{
                 // 서비스에서 넣어준 정렬 조건을 스위치 케이스 문을 활용하여 셋팅하여 준다.
                 switch (order.getProperty()){
                     case "id":
-                        return new OrderSpecifier(direction, QSiteUser.siteUser.id);
+                        return new OrderSpecifier(direction, siteUser.id);
                     case "username":
-                        return new OrderSpecifier(direction, QSiteUser.siteUser.username);
+                        return new OrderSpecifier(direction, siteUser.username);
                     case "email":
-                        return new OrderSpecifier(direction, QSiteUser.siteUser.email);
+                        return new OrderSpecifier(direction, siteUser.email);
                 }
             }
         }
