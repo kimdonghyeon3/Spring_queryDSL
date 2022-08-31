@@ -1,10 +1,9 @@
-package com.ll.exam.app3;
+package com.ll.exam.app3.user.repository;
 
-import com.querydsl.core.QueryResults;
+import com.ll.exam.app3.QSiteUser;
+import com.ll.exam.app3.user.entity.SiteUser;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
-import com.querydsl.core.types.Path;
-import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -12,7 +11,6 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.springframework.util.ObjectUtils.isEmpty;
@@ -103,7 +101,6 @@ public class SiteUserRepositoryImpl implements SiteUserRepositoryCustom{
 
         return new PageImpl<>(results, pageable, count);
     }
-
 
     private OrderSpecifier<?> siteUserSort(Pageable page) {
         //서비스에서 보내준 Pageable 객체에 정렬조건 null 값 체크

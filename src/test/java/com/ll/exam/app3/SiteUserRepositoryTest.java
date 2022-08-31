@@ -1,5 +1,7 @@
 package com.ll.exam.app3;
 
+import com.ll.exam.app3.user.entity.SiteUser;
+import com.ll.exam.app3.user.repository.SiteUserRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -159,5 +161,21 @@ public class SiteUserRepositoryTest {
         assertThat(usersPage.getNumber()).isEqualTo(1);
         assertThat(usersPage.getTotalPages()).isEqualTo(2);
         assertThat(usersPage.getTotalElements()).isEqualTo(2);
+    }
+
+    @Test
+    @DisplayName("회원에게 관심사를 등록할 수 있다.")
+    void t10() {
+        SiteUser u2 = siteUserRepository.getQslUser(2L);
+
+        u2.addInterestKeywordContent("축구");
+        u2.addInterestKeywordContent("롤");
+        u2.addInterestKeywordContent("헬스");
+        u2.addInterestKeywordContent("헬스"); // 중복등록은 무시
+
+        siteUserRepository.save(u2);
+        // 엔티티클래스 : InterestKeyword(interest_keyword 테이블)
+        // 중간테이블도 생성되어야 함, 힌트 : @ManyToMany
+        // interest_keyword 테이블에 축구, 롤, 헬스에 해당하는 row 3개 생성
     }
 }

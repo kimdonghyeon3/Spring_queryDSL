@@ -1,5 +1,7 @@
-package com.ll.exam.app3;
+package com.ll.exam.app3.user.controller;
 
+import com.ll.exam.app3.user.entity.SiteUser;
+import com.ll.exam.app3.user.repository.SiteUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

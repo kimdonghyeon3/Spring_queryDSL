@@ -1,6 +1,8 @@
-package com.ll.exam.app3;
+package com.ll.exam.app3.base;
 
 
+import com.ll.exam.app3.user.entity.SiteUser;
+import com.ll.exam.app3.user.repository.SiteUserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

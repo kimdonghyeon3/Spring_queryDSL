@@ -1,4 +1,4 @@
-package com.ll.exam.app3;
+package com.ll.exam.app3.user.entity;
 
 
 import lombok.*;
@@ -23,4 +23,8 @@ public class SiteUser {
 
     @Column(unique = true)
     private String email;
+
+    public void addInterestKeywordContent(String keywordContent) {
+
+    }
 }

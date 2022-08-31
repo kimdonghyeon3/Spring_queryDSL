@@ -1,5 +1,6 @@
-package com.ll.exam.app3;
+package com.ll.exam.app3.user.repository;
 
+import com.ll.exam.app3.user.entity.SiteUser;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

@@ -1,4 +1,4 @@
-package com.ll.exam.app3;
+package com.ll.exam.app3.base;
 
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
