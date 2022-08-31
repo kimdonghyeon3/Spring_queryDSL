@@ -1,6 +1,8 @@
 package com.ll.exam.app3.user.repository;
 
-import com.ll.exam.app3.QSiteUser;
+import com.ll.exam.app3.interestKeyword.entity.InterestKeyword;
+import com.ll.exam.app3.interestKeyword.entity.QInterestKeyword;
+import com.ll.exam.app3.user.entity.QSiteUser;
 import com.ll.exam.app3.user.entity.SiteUser;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
@@ -102,6 +104,18 @@ public class SiteUserRepositoryImpl implements SiteUserRepositoryCustom{
         return new PageImpl<>(results, pageable, count);
     }
 
+    @Override
+    public List<SiteUser> getSiteUserByInterestKeyword(String str) {
+
+        return jpaQueryFactory
+                .select(QSiteUser.siteUser)
+                .from(QSiteUser.siteUser)
+                .where(QSiteUser.siteUser.interestKeywords.contains(new InterestKeyword(str)))
+                .fetch();
+    }
+
+
+
     private OrderSpecifier<?> siteUserSort(Pageable page) {
         //서비스에서 보내준 Pageable 객체에 정렬조건 null 값 체크
         if (!page.getSort().isEmpty()) {
@@ -122,5 +136,7 @@ public class SiteUserRepositoryImpl implements SiteUserRepositoryCustom{
         }
         return null;
     }
+
+
 
 }

@@ -174,8 +174,13 @@ public class SiteUserRepositoryTest {
         u2.addInterestKeywordContent("헬스"); // 중복등록은 무시
 
         siteUserRepository.save(u2);
-        // 엔티티클래스 : InterestKeyword(interest_keyword 테이블)
-        // 중간테이블도 생성되어야 함, 힌트 : @ManyToMany
-        // interest_keyword 테이블에 축구, 롤, 헬스에 해당하는 row 3개 생성
+    }
+
+    @Test
+    @DisplayName("축구에 관심 있는 회원을 검색")
+    void t11() {
+        List<SiteUser> siteUsers = siteUserRepository.getSiteUserByInterestKeyword("축구");
+
+        assertThat(siteUsers.size()).isEqualTo(1);
     }
 }

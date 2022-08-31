@@ -16,7 +16,7 @@ import java.util.List;
 public class TestInitData {
     // CommandLineRunner : 주로 앱 실행 직후 초기데이터 세팅 및 초기화에 사용
     @Bean
-    CommandLineRunner init(SiteUserRepository siteUserRepository) {
+    CommandLineRunner init(SiteUserRepository userRepository) {
         return args -> {
             SiteUser u1 = SiteUser.builder()
                     .username("user1")
@@ -30,7 +30,13 @@ public class TestInitData {
                     .email("user2@test.com")
                     .build();
 
-            List<SiteUser> siteUsers = siteUserRepository.saveAll(Arrays.asList(u1, u2));
+            u1.addInterestKeywordContent("축구");
+            u1.addInterestKeywordContent("농구");
+
+            u2.addInterestKeywordContent("클라이밍");
+            u2.addInterestKeywordContent("마라톤");
+
+            userRepository.saveAll(Arrays.asList(u1, u2));
         };
     }
 }
