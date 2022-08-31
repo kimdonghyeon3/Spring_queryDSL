@@ -182,5 +182,32 @@ public class SiteUserRepositoryTest {
         List<SiteUser> siteUsers = siteUserRepository.getSiteUserByInterestKeyword("축구");
 
         assertThat(siteUsers.size()).isEqualTo(1);
+
+        SiteUser u = siteUsers.get(0);
+
+        assertThat(u.getId()).isEqualTo(1L);
+        assertThat(u.getUsername()).isEqualTo("user1");
+        assertThat(u.getEmail()).isEqualTo("user1@test.com");
+        assertThat(u.getPassword()).isEqualTo("{noop}1234");
     }
+
+    @Test
+    @DisplayName("Spring data jpa 축구에 관심 있는 회원을 검색")
+    void t12() {
+        List<SiteUser> siteUsers = siteUserRepository.findByInterestKeywords_content("축구");
+
+        assertThat(siteUsers.size()).isEqualTo(1);
+
+        SiteUser u = siteUsers.get(0);
+
+        assertThat(u.getId()).isEqualTo(1L);
+        assertThat(u.getUsername()).isEqualTo("user1");
+        assertThat(u.getEmail()).isEqualTo("user1@test.com");
+        assertThat(u.getPassword()).isEqualTo("{noop}1234");
+    }
+
+
+
+
+
 }
