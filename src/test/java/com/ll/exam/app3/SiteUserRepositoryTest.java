@@ -10,12 +10,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -204,6 +203,72 @@ public class SiteUserRepositoryTest {
         assertThat(u.getUsername()).isEqualTo("user1");
         assertThat(u.getEmail()).isEqualTo("user1@test.com");
         assertThat(u.getPassword()).isEqualTo("{noop}1234");
+    }
+
+    @Test
+    @DisplayName("u1은 u2의 팬이다.")
+    @Rollback(false)
+    void t13() {
+        SiteUser u1 = siteUserRepository.getQslUser(1L);
+        SiteUser u2 = siteUserRepository.getQslUser(2L);
+
+        u1.follow(u2);
+
+        //siteUserRepository.save(u2);
+    }
+
+    @Test
+    @DisplayName("u1은 u1을 팔로우 할 수 없다.")
+    @Rollback(false)
+    void t14() {
+        SiteUser u1 = siteUserRepository.getQslUser(1L);
+        u1.follow(u1);
+
+        assertThat(u1.getFollowers().size()).isEqualTo(0);
+    }
+
+    @Test
+    @DisplayName("u1과 u2는 맞팔이다.")
+    @Rollback(false)
+    void t15() {
+        SiteUser u1 = siteUserRepository.getQslUser(1L);
+        SiteUser u2 = siteUserRepository.getQslUser(2L);
+
+        u1.follow(u2);
+        u2.follow(u1);
+
+        siteUserRepository.save(u1);
+        siteUserRepository.save(u2);
+    }
+
+    @Test
+    @DisplayName("팔로워와 팔로잉 추가")
+    @Rollback(false)
+    void t16() {
+        SiteUser u1 = siteUserRepository.getQslUser(1L);
+        SiteUser u2 = siteUserRepository.getQslUser(2L);
+
+        u1.follow(u2);
+
+        u1.getFollowers();
+        u1.getFollowings();
+
+        u2.getFollowers();
+        u2.getFollowings();
+
+        assertThat(u1.getFollowers().size()).isEqualTo(0);
+        assertThat(u1.getFollowings().size()).isEqualTo(1);
+        assertThat(u2.getFollowers().size()).isEqualTo(1);
+        assertThat(u2.getFollowings().size()).isEqualTo(0);
+
+
+        assertThat(u1.getFollowings().iterator().next().getUsername()).isEqualTo("user2");
+        assertThat(u2.getFollowers().iterator().next().getUsername()).isEqualTo("user1");
+
+
+
+        //siteUserRepository.save(u1);
+        //siteUserRepository.save(u2);
     }
 
 
