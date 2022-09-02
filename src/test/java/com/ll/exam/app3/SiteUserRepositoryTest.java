@@ -129,14 +129,14 @@ public class SiteUserRepositoryTest {
 
         SiteUser u = users.get(0);
 
-        assertThat(u.getId()).isEqualTo(8L);
-        assertThat(u.getUsername()).isEqualTo("user8");
-        assertThat(u.getEmail()).isEqualTo("user8@test.com");
+        assertThat(u.getId()).isEqualTo(2L);
+        assertThat(u.getUsername()).isEqualTo("user2");
+        assertThat(u.getEmail()).isEqualTo("user2@test.com");
         assertThat(u.getPassword()).isEqualTo("{noop}1234");
 
         assertThat(usersPage.getNumber()).isEqualTo(1);
-        assertThat(usersPage.getTotalPages()).isEqualTo(2);
-        assertThat(usersPage.getTotalElements()).isEqualTo(2);
+        assertThat(usersPage.getTotalPages()).isEqualTo(8);
+        assertThat(usersPage.getTotalElements()).isEqualTo(8);
     }
 
     @Test
@@ -152,14 +152,14 @@ public class SiteUserRepositoryTest {
 
         SiteUser u = users.get(0);
 
-        assertThat(u.getId()).isEqualTo(8L);
-        assertThat(u.getUsername()).isEqualTo("user8");
-        assertThat(u.getEmail()).isEqualTo("user8@test.com");
+        assertThat(u.getId()).isEqualTo(7L);
+        assertThat(u.getUsername()).isEqualTo("user7");
+        assertThat(u.getEmail()).isEqualTo("user7@test.com");
         assertThat(u.getPassword()).isEqualTo("{noop}1234");
 
         assertThat(usersPage.getNumber()).isEqualTo(1);
-        assertThat(usersPage.getTotalPages()).isEqualTo(2);
-        assertThat(usersPage.getTotalElements()).isEqualTo(2);
+        assertThat(usersPage.getTotalPages()).isEqualTo(8);
+        assertThat(usersPage.getTotalElements()).isEqualTo(8);
     }
 
     @Test
