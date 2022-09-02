@@ -207,7 +207,6 @@ public class SiteUserRepositoryTest {
 
     @Test
     @DisplayName("u1은 u2의 팬이다.")
-    @Rollback(false)
     void t13() {
         SiteUser u1 = siteUserRepository.getQslUser(1L);
         SiteUser u2 = siteUserRepository.getQslUser(2L);
@@ -219,7 +218,6 @@ public class SiteUserRepositoryTest {
 
     @Test
     @DisplayName("u1은 u1을 팔로우 할 수 없다.")
-    @Rollback(false)
     void t14() {
         SiteUser u1 = siteUserRepository.getQslUser(1L);
         u1.follow(u1);
@@ -242,7 +240,7 @@ public class SiteUserRepositoryTest {
     }
 
     @Test
-    @DisplayName("팔로워와 팔로잉 추가")
+    @DisplayName("특정회원의 follower들과 following들을 모두 알 수 있어야 한다.")
     @Rollback(false)
     void t16() {
         SiteUser u1 = siteUserRepository.getQslUser(1L);
@@ -250,29 +248,21 @@ public class SiteUserRepositoryTest {
 
         u1.follow(u2);
 
-        u1.getFollowers();
-        u1.getFollowings();
+        // follower
+        // u1의 구독자 : 0
+        assertThat(u1.getFollowers().size()).isEqualTo(1);
 
-        u2.getFollowers();
-        u2.getFollowings();
-
-        assertThat(u1.getFollowers().size()).isEqualTo(0);
-        assertThat(u1.getFollowings().size()).isEqualTo(1);
+        // follower
+        // u2의 구독자 : 1
         assertThat(u2.getFollowers().size()).isEqualTo(1);
-        assertThat(u2.getFollowings().size()).isEqualTo(0);
 
+        // following
+        // u1이 구독중인 회원 : 1
+        assertThat(u1.getFollowings().size()).isEqualTo(1);
 
-        assertThat(u1.getFollowings().iterator().next().getUsername()).isEqualTo("user2");
-        assertThat(u2.getFollowers().iterator().next().getUsername()).isEqualTo("user1");
-
-
-
-        //siteUserRepository.save(u1);
-        //siteUserRepository.save(u2);
+        // following
+        // u2가 구독중인 회원 : 0
+        assertThat(u2.getFollowings().size()).isEqualTo(1);
     }
-
-
-
-
 
 }

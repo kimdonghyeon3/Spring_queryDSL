@@ -15,6 +15,7 @@ import org.springframework.data.domain.Sort;
 
 import java.util.List;
 
+import static com.ll.exam.app3.interestKeyword.entity.QInterestKeyword.interestKeyword;
 import static com.ll.exam.app3.user.entity.QSiteUser.siteUser;
 import static org.springframework.util.ObjectUtils.isEmpty;
 
@@ -105,9 +106,11 @@ public class SiteUserRepositoryImpl implements SiteUserRepositoryCustom{
     public List<SiteUser> getSiteUserByInterestKeyword(String str) {
 
         return jpaQueryFactory
-                .select(siteUser)
-                .from(siteUser)
-                .where(siteUser.interestKeywords.contains(new InterestKeyword(str)))
+                .selectFrom(siteUser)
+                .innerJoin(siteUser.interestKeywords, interestKeyword)
+                .where(
+                        interestKeyword.content.eq(str)
+                )
                 .fetch();
     }
 
