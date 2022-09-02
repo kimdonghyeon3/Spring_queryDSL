@@ -284,12 +284,20 @@ public class SiteUserRepositoryTest {
     }
 
     @Test
-    @DisplayName("u8 회원이 팔로워하는 사람의 취미 가져오기")
+    @DisplayName("u2 회원이 팔로워하는 사람의 취미 가져오기")
     @Rollback(false)
     void t18() {
-        SiteUser u1 = siteUserRepository.getQslUser(1L);
+        SiteUser u2 = siteUserRepository.getQslUser(2L);
 
-        u1.removeInterestKeywordContent("농구");
+        List<InterestKeyword> followingsInterests = siteUserRepository.getFollowingsInterests(u2);
+
+
+        System.out.println("크기는 ? " + followingsInterests.size());
+
+        for (InterestKeyword s : followingsInterests) {
+            System.out.println("u2회원이 팔로워 하는 사람의 취미 = " + s.getContent());
+
+        }
     }
 
 

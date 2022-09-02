@@ -1,8 +1,7 @@
 package com.ll.exam.app3.user.repository;
 
-import com.ll.exam.app3.interestKeyword.entity.InterestKeyword;
-import com.ll.exam.app3.interestKeyword.entity.QInterestKeyword;
 //import com.ll.exam.app3.user.entity.QSiteUser;
+import com.ll.exam.app3.interestKeyword.entity.InterestKeyword;
 import com.ll.exam.app3.user.entity.SiteUser;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
@@ -15,7 +14,7 @@ import org.springframework.data.domain.Sort;
 
 import java.util.List;
 
-import static com.ll.exam.app3.interestKeyword.entity.QInterestKeyword.interestKeyword;
+        import static com.ll.exam.app3.interestKeyword.entity.QInterestKeyword.interestKeyword;
 import static com.ll.exam.app3.user.entity.QSiteUser.siteUser;
 import static org.springframework.util.ObjectUtils.isEmpty;
 
@@ -111,6 +110,14 @@ public class SiteUserRepositoryImpl implements SiteUserRepositoryCustom{
                 .where(
                         interestKeyword.content.eq(str)
                 )
+                .fetch();
+    }
+
+    @Override
+    public List<InterestKeyword> getFollowingsInterests(SiteUser user) {
+        return jpaQueryFactory.selectFrom(interestKeyword)
+                .innerJoin(interestKeyword.user, siteUser)
+                .where(interestKeyword.user.in(user.getFollowings()))
                 .fetch();
     }
 
