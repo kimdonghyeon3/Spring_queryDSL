@@ -43,6 +43,10 @@ public class SiteUser {
         interestKeywords.add(new InterestKeyword(this, keywordContent));
     }
 
+    public void removeInterestKeywordContent(String keywordContent) {
+        interestKeywords.remove(new InterestKeyword(this, keywordContent));
+    }
+
     public void follow(SiteUser siteUser) {
 
         if(this == siteUser) {

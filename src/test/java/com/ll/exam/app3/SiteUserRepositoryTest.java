@@ -283,6 +283,15 @@ public class SiteUserRepositoryTest {
         }
     }
 
+    @Test
+    @DisplayName("u8 회원이 팔로워하는 사람의 취미 가져오기")
+    @Rollback(false)
+    void t18() {
+        SiteUser u1 = siteUserRepository.getQslUser(1L);
+
+        u1.removeInterestKeywordContent("농구");
+    }
+
 
 
 }
